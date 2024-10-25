@@ -1,29 +1,20 @@
 pipeline {
-    agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/muthu512/example.git'
-            }
-        }
+    agent any 
+    tools {
+        maven 'Maven 3.9.9' // Ensure this matches your configuration
+    }
+    stages {    
         stage('Build') {
             steps {
-                script {
-                    // Define the JAR file
-                    def jarFile = 'target/ZipFileHandling-0.0.1-SNAPSHOT.jar'
-                    
-                    // Run Maven build
-                    bat 'mvn clean package'
-                }
+                bat 'mvn clean package -Dmaven.test.skip=true' // Use sh for Unix-like systems
             }
         }
         stage('Deploy') {
             steps {
-                script {
-                    // Deploy the JAR file
-                    bat "java -jar ${jarFile}"
-                }
+                // Change the path to where your JAR is located after the build
+                bat 'java -jar target/ZipFileHandling-0.0.1-SNAPSHOT.jar' // Ensure the path to your JAR is correct
             }
         }
     }
 }
+
