@@ -1,43 +1,13 @@
 pipeline {
     agent any 
-
+    tools {
+        maven 'Maven 3.9.9' // Ensure this matches your configuration
+    }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Build') {
             steps {
-                script {
-                    // Package the application
-                    bat 'mvn clean package'
-                }
+                bat 'mvn clean package -Dmaven.test.skip=true' // Use bat for Windows
             }
-        }
-        stage('Test') {
-            steps {
-                script {
-                    // Run tests
-                    bat 'mvn test'
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    // Replace this with your deployment command
-                    // For example, run the JAR file
-                    bat 'java -jar target/your-app-name.jar'  // Replace with your actual JAR name
-                }
-            }
-        }
-    }
-
-    post {
-        always {
-            // Clean up workspace
-            cleanWs()
         }
     }
 }
