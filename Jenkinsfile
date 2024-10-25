@@ -6,13 +6,13 @@ pipeline {
     stages {    
         stage('Build') {
             steps {
-                sh 'mvn clean package -Dmaven.test.skip=true' // Use sh for Unix-like systems
+                bat 'mvn clean package -Dmaven.test.skip=true' // Use sh for Unix-like systems
             }
         }
         stage('Deploy') {
             steps {
                 // Change the path to where your JAR is located after the build
-                sh 'java -jar target/ZipFileHandling-0.0.1-SNAPSHOT.jar' // Ensure the path to your JAR is correct
+                bat 'java -jar target/ZipFileHandling-0.0.1-SNAPSHOT.jar' // Ensure the path to your JAR is correct
             }
         }
     }
