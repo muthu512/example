@@ -6,14 +6,15 @@ pipeline {
     stages {    
         stage('Build') {
             steps {
-                bat 'mvn clean package -Dmaven.test.skip=true' // Use bat for Windows
+                sh 'mvn clean package -Dmaven.test.skip=true' // Use sh for Unix-like systems
             }
         }
         stage('Deploy') {
             steps {
                 // Change the path to where your JAR is located after the build
-                bat 'java -jar "C:\\Users\\Dell-Lap\\Downloads\\Spring-Rest-Zip-File-Handling-master\\Spring-Rest-Zip-File-Handling-master\\ZipFileHandling\\target\\ZipFileHandling-0.0.1-SNAPSHOT.jar"' // Ensure the path to your JAR is correct
+                sh 'java -jar target/ZipFileHandling-0.0.1-SNAPSHOT.jar' // Ensure the path to your JAR is correct
             }
         }
     }
 }
+
